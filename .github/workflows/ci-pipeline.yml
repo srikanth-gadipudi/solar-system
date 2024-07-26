@@ -1,0 +1,35 @@
+name: node js ci pipeline
+on:
+  push:
+    branches: 
+        - main
+        - 'feature\*'
+  pull_request:
+    branches:
+        - main
+
+  workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+          matrix:
+            node-version: [14.x, 16.x, 18.x]
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                node-version: ${{ matrix.node-version }}
+            - name: npm install and build
+              run: npm install
+
+            - name: run npm tests 
+              run: npm test
+            
+            - name : run npm coverage 
+              run: npm run coverage
+
+            - name: run the application
+              run: npm start
