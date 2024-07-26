@@ -23,6 +23,11 @@ on:
             description: 'Test scenario tags'
             required: false
             type: boolean
+env:
+    MONGO_URI: mongodb+srv://cluster0.5hbgafe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+    MONGO_USERNAME: ${{ vars.MONGO_USERNAME}}
+    MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+
 
 jobs:
     build:
@@ -38,5 +43,8 @@ jobs:
                 node-version: ${{ matrix.node-version }}
             - name: npm install and build
               run: npm install
+            - name: test npm
+              run: npm test
+            
 
 
