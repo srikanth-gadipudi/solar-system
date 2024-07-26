@@ -1,0 +1,42 @@
+name: node js ci pipeline
+on:
+  push:
+    branches: 
+        - main
+        - 'feature/*'
+  pull_request:
+    branches:
+        - main
+
+  workflow_dispatch:
+    inputs:
+        logLevel:
+            description: 'Log level'
+            required: true
+            default: 'warning'
+            type: choice
+            options:
+            - info
+            - warning
+            - debug
+        tags:
+            description: 'Test scenario tags'
+            required: false
+            type: boolean
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+          matrix:
+            node-version: [18]
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                node-version: ${{ matrix.node-version }}
+            - name: npm install and build
+              run: npm install
+
+
