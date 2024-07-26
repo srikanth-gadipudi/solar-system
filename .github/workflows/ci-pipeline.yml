@@ -32,15 +32,12 @@ env:
 jobs:
     build:
         runs-on: ubuntu-latest
-        strategy:
-          matrix:
-            node-version: [18]
         steps:
             - uses: actions/checkout@v2
-            - name: Use Node.js ${{ matrix.node-version }}
+            - name: Use Node.js version 18
               uses: actions/setup-node@v3
               with:
-                node-version: ${{ matrix.node-version }}
+                node-version: 18
             - name: npm install and build
               run: npm install
             - name: test npm
