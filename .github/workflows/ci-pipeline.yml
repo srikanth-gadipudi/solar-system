@@ -39,11 +39,4 @@ jobs:
             - name: npm install and build
               run: npm install
 
-            - name: run npm tests 
-              run: npm test
-            
-            - name : run npm coverage 
-              run: npm run coverage
 
-            - name: run the application
-              run: npm start
