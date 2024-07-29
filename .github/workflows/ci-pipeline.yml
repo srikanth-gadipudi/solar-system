@@ -46,7 +46,7 @@ jobs:
 
             - name: archive test artifact 
               uses: actions/upload-artifact@v3
-              if: steps.generate-test-result.outcome == 'failure' ||  steps.generate-test-result.outcome == 'Success' || !${{ success()}}
+              if: always()
           
               with:
                 path: test-results.xml
