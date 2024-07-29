@@ -41,6 +41,27 @@ jobs:
             - name: npm install and build
               run: npm install
 
+    code-coverage:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js version 18
+              uses: actions/setup-node@v3
+              with:
+                node-version: 18
+            - name: npm install and build
+              run: npm install
+
+            - name: run npm coverage
+              run: npm run coverage
+            
+            - name : archive coverage artifact 
+              uses: actions/upload-artifact@v4
+              with:
+                name: coverage-artifact
+                path: coverage
+                retention-days: 5
+
             
 
 
