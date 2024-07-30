@@ -69,6 +69,7 @@ jobs:
             
             - name : archive coverage artifact 
               uses: actions/upload-artifact@v4
+              if: always()
               with:
                 name: coverage-artifact
                 path: coverage
