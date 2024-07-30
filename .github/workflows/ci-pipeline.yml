@@ -66,7 +66,7 @@ jobs:
           
               with:
                 path: test-results.xml
-                name: test-result-artifact
+                name: test-result-artifact-${{ matrix.node}}-${{matrix.os}}
 
     code-coverage:
         runs-on: ${{matrix.os}}
