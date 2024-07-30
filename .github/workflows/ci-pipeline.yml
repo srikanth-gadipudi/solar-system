@@ -28,16 +28,21 @@ env:
     MONGO_USERNAME: ${{ vars.MONGO_USERNAME}}
     MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 
-
 jobs:
+
     build:
-        runs-on: ubuntu-latest
+        strategy:
+          matrix:
+            node: [18,20]
+            os : [ubuntu-latest,macos-latest]  
+          
+        runs-on: ${{ matrix.os }}
         steps:
             - uses: actions/checkout@v2
             - name: Use Node.js version 18
               uses: actions/setup-node@v3
               with:
-                node-version: 18
+                node-version: ${{ matrix.node }}
 
             - name: Cache node modules
               id: cache-npm
@@ -64,14 +69,18 @@ jobs:
                 name: test-result-artifact
 
     code-coverage:
-        runs-on: ubuntu-latest
+        runs-on: ${{matrix.os}}
+        strategy:
+          matrix:
+            node: [18,20]
+            os : [ubuntu-latest,macos-latest]  
         needs: [build]
         steps:
             - uses: actions/checkout@v2
             - name: Use Node.js version 18
               uses: actions/setup-node@v3
               with:
-                node-version: 18
+                node-version: ${{ matrix.node }}
             - name: Cache node modules
               id: cache-npm
               uses: actions/cache@v3
