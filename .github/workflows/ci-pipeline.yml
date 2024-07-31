@@ -123,11 +123,14 @@ jobs:
         - name: docker image build
           run: docker build -t solar-system:${{github.run_number}} .
 
+        - name: tag docker image with docker hub name
+          run: docker tag solar-system:${{github.run_number}} ${{ vars.DOCKER_USERNAME}}/solar-system:${{github.run_number}}
+
         - name: push docker images to docker hub
-          run: docker push solar-system:${{github.run_number}}
+          run: docker push ${{ vars.DOCKER_USERNAME}}/solar-system:${{github.run_number}}
 
         - name: cleanup all the docker images
-          run: docker rmi -f solar-system:${{github.run_number}}
+          run: docker rmi -f solar-system:${{github.run_number}} ${{ vars.DOCKER_USERNAME}}/solar-system:${{github.run_number}}
 
           
 
