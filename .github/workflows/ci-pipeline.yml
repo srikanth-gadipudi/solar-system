@@ -109,6 +109,9 @@ jobs:
     Build-docker-image:
       runs-on: ubuntu-latest
       needs: [build,code-coverage]
+      permissions:
+        contents: read
+        packages: write
 
       steps:
         - name: Checkout code
