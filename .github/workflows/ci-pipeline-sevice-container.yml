@@ -16,9 +16,11 @@ jobs:
         image: mongo:latest
         ports:
           - 27017:27017
-        env:
-          MONGO_INITDB_ROOT_USERNAME: root
-          MONGO_INITDB_ROOT_PASSWORD: password
+
+    env:
+        MONGO_URL: 'mongodb://localhost:27017/superData'
+        MONGO_USERNAME: root
+        MONGO_PASSWORD: password
 
     steps:
     - name: Checkout code
@@ -43,8 +45,4 @@ jobs:
       run: npm install
 
     - name: Run tests
-      env:
-        MONGO_URL: 'mongodb://localhost:27017/superData'
-        MONGO_USERNAME: root
-        MONGO_PASSWORD: password
       run: npm test
