@@ -18,10 +18,9 @@ jobs:
           - 27017:27017
 
     env:
-        MONGO_URL: 'mongodb://localhost:27017/superData'
-        MONGO_USERNAME: root
-        MONGO_PASSWORD: password
-
+      MONGO_URI: mongodb+srv://supercluster.d83jj.mongodb.net/superData
+      MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
+      MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
