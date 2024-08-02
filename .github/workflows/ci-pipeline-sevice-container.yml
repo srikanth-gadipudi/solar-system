@@ -16,6 +16,9 @@ jobs:
         image: mongo:latest
         ports:
           - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: password
 
     env:
       MONGO_URI: 'mongodb://127.0.0.1:27017/superData'
