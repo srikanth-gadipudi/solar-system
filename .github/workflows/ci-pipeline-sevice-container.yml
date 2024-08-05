@@ -14,15 +14,11 @@ jobs:
     container:
       image: node:18
 
-    services:
-      mongo:
-        image: mongo:latest
-      options: --name mongo
-
     env:
-      MONGO_URI: 'mongodb://mongo:27017/superData'
-      MONGO_USERNAME: non-prod-user
-      MONGO_PASSWORD: non-prod-passowrd
+      MONGO_URI: mongodb+srv://supercluster.d83jj.mongodb.net/superData
+      MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
+      MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+      
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
