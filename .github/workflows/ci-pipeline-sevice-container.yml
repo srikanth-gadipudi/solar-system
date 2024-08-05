@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: node:18
-      options: --user 1001
 
     services:
       mongo:
