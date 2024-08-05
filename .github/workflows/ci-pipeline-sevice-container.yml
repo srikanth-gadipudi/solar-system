@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on: 
     push:
-        branches: [main]
+        branches: [main,feature/*]
     pull_request:
         branches: [main]
     workflow_dispatch:
@@ -18,7 +18,7 @@ jobs:
       MONGO_URI: mongodb+srv://supercluster.d83jj.mongodb.net/superData
       MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
       MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-      
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
