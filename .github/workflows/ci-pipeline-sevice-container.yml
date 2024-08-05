@@ -11,24 +11,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: node:18
+      options: --user 1001
+
     services:
-      mongodb:
-        image: siddharth67/mongo-db:non-prod
-        ports:
-          - 27017:27017
+      mongo:
+        image: mongo:latest
+      options: --name mongo
 
     env:
-      MONGO_URI: 'mongodb://localhost:27017/superData'
+      MONGO_URI: 'mongodb://mongo:27017/superData'
       MONGO_USERNAME: non-prod-user
       MONGO_PASSWORD: non-prod-passowrd
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
 
     - name: Cache node modules
       id: cache-npm
