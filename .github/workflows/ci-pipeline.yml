@@ -1,3 +1,55 @@
+
+# Name: node js ci pipeline
+# Description: This workflow is triggered on push to the main branch, pull requests to the main branch, and manually through workflow_dispatch. It builds, tests, and deploys a Node.js application using Docker.
+# Triggers:
+#   - push: Triggered on push to the main branch
+#   - pull_request: Triggered on pull requests to the main branch
+#   - workflow_dispatch: Manually triggered through workflow_dispatch
+# Inputs:
+#   - logLevel: The log level for the application. Default is 'warning'. Available options are 'info', 'warning', and 'debug'.
+#   - tags: Test scenario tags. Optional.
+# Environment variables:
+#   - MONGO_URI: MongoDB connection URI.
+#   - MONGO_USERNAME: MongoDB username.
+#   - MONGO_PASSWORD: MongoDB password.
+# Jobs:
+#   - build: Builds and tests the Node.js application.
+#     - Strategy:
+#       - node: [18, 20]
+#       - os: [ubuntu-latest]
+#     - Steps:
+#       - Checkout the code.
+#       - Use the specified Node.js version.
+#       - Cache node modules.
+#       - Install dependencies and build the application.
+#       - Run tests and generate test results.
+#       - Archive test results as an artifact.
+#   - code-coverage: Generates code coverage report.
+#     - Strategy:
+#       - node: [18, 20]
+#       - os: [ubuntu-latest]
+#     - Needs: [build]
+#     - Steps:
+#       - Checkout the code.
+#       - Use the specified Node.js version.
+#       - Cache node modules.
+#       - Install dependencies and build the application.
+#       - Run code coverage and generate report.
+#       - Archive code coverage report as an artifact.
+#   - Build-docker-image: Builds and pushes Docker image.
+#     - Runs on: ubuntu-latest
+#     - Needs: [build, code-coverage]
+#     - Permissions:
+#       - contents: read
+#       - packages: write
+#     - Steps:
+#       - Checkout the code.
+#       - Login to Docker Hub.
+#       - Login to GHCR.
+#       - Build Docker image.
+#       - Run Docker image and perform tests.
+#       - Build and push Docker image with tags.
+#       - Cleanup Docker images.
 name: node js ci pipeline
 on:
   push:
