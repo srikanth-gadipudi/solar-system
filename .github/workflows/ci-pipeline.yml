@@ -204,10 +204,10 @@ jobs:
       runs-on: ubuntu-latest
       needs: [Build-docker-image]
       steps:
-        - name: Install kubectl
-          uses: azure/kubectl@v4
+        - uses: azure/setup-kubectl@v4
           with:
-            version: "1.26.0"
+              version: 'latest' # default is latest stable
+          id: install
 
         - name: Get cluster information
           run: kubectl cluster-info
