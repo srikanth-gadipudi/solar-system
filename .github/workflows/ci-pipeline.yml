@@ -210,6 +210,17 @@ jobs:
               version: 'latest' # default is latest stable
           id: install
 
+        - uses: infraway/generate-kube-config@v1.2
+         with:
+           workdir: ${{ github.workspace }}
+           kubeconfig: ${{ secrets.KUBECONFIG }}
+
+        - uses: azure/k8s-set-context@v4
+          with:
+            method: kubeconfig
+            kubeconfig: ${{ env.KUBECONFIG }}
+            
+
         - name: Get cluster information
           run: kubectl cluster-info
         - name: Get node information
