@@ -82,7 +82,7 @@ jobs:
     build:
         strategy:
           matrix:
-            node: [18,20]
+            node: [18]
             os: [ubuntu-latest]  
         runs-on: ${{ matrix.os }}
         steps:
@@ -116,7 +116,7 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
           matrix:
-            node: [18,20]
+            node: [18]
             os: [ubuntu-latest]  
         needs: [build]
         steps:
