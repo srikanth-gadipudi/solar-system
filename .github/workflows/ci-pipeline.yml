@@ -211,7 +211,7 @@ jobs:
           id: install
 
         - uses: infraway/generate-kube-config@v1.2
-         with:
+          with:
            workdir: ${{ github.workspace }}
            kubeconfig: ${{ secrets.KUBECONFIG }}
 
