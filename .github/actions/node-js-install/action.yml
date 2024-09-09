@@ -1,0 +1,25 @@
+name: 'Node js setup and cache'
+description: 'this action will setup node js and cache node modules'
+inputs:
+  node-version:
+    description: 'The version of Node.js to use'
+    required: true
+    default: '18'
+runs:
+  using: "composite"
+  steps:
+    - name: Use Node.js version 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+    - name: Cache node modules
+      id: cache-npm
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+    - name: npm install and build
+      shell: bash
+      run: npm install

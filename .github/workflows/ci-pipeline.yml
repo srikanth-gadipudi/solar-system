@@ -28,27 +28,13 @@ env:
 
 jobs:
     build:
-        strategy:
-          matrix:
-            node: [18,20]
-            os: [ubuntu-latest]  
-        runs-on: ${{ matrix.os }}
+        runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-            - name: Use Node.js version ${{ matrix.node }}
-              uses: actions/setup-node@v3
-              with:
-                node-version: ${{ matrix.node }}
-            - name: Cache node modules
-              id: cache-npm
-              uses: actions/cache@v3
-              env:
-                cache-name: cache-node-modules
-              with:
-                path: node_modules
-                key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
-            - name: npm install and build
-              run: npm install
+            - name: set up and install nodejs
+              uses: ./.github/actions/node-js-install
+
+ 
             - name: run npm test
               id: generate-test-result
               run: npm run test
@@ -57,39 +43,26 @@ jobs:
               if: always()
               with:
                 path: test-results.xml
-                name: test-result-artifact-${{ matrix.node }}-${{ matrix.os }}
+                name: test-result-artifact-18-ubuntu 
                 retention-days: 5
 
     code-coverage:
-        runs-on: ${{ matrix.os }}
-        strategy:
-          matrix:
-            node: [18,20]
-            os: [ubuntu-latest]  
+        runs-on: ubuntu-latest
+
         needs: [build]
         steps:
             - uses: actions/checkout@v2
-            - name: Use Node.js version ${{ matrix.node }}
-              uses: actions/setup-node@v3
-              with:
-                node-version: ${{ matrix.node }}
-            - name: Cache node modules
-              id: cache-npm
-              uses: actions/cache@v3
-              env:
-                cache-name: cache-node-modules
-              with:
-                path: node_modules
-                key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
-            - name: npm install and build
-              run: npm install
+            - name: set up and install nodejs
+              uses: ./.github/actions/node-js-install
+              
+
             - name: run npm coverage
               run: npm run coverage
             - name: archive coverage artifact 
               uses: actions/upload-artifact@v4
               if: always()
               with:
-                name: coverage-artifact-${{ matrix.node }}-${{ matrix.os }}
+                name: coverage-artifact-18-ubuntu
                 path: coverage
                 retention-days: 5
       
@@ -147,16 +120,3 @@ jobs:
         - name: cleanup all the docker images
           run: docker rmi -f solar-system:${{ github.run_number }} ${{ vars.DOCKER_USERNAME }}/solar-system:${{ github.run_number }}
 
-    kubectl-job:
-      runs-on: ubuntu-latest
-      needs: [Build-docker-image]
-      steps:
-        - name: Install kubectl
-          uses: azure/kubectl@v4
-          with:
-           version: "1.26.0"
-
-        - name: Get cluster information
-          run: kubectl cluster-info
-        - name: Get node information
-          run: kubectl get nodes
