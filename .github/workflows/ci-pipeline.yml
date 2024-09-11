@@ -38,13 +38,12 @@ jobs:
 
         steps:
             - uses: actions/checkout@v2
-
-            - uses: SOLIDSoftworks/semver-tags@v1
+            - name: Increment version from repository's tags
+              id: tages_versioning
+              uses: georgeneto/tags-versioning
               with:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-                tag-prefix: 'v'
-                default-version: '0.0.1'
-                prerelease: 'alpha'
+                repo-token: ${{secrets.GITHUB_TOKEN}}
+
             - name: set up and install nodejs
               uses: ./.github/actions/node-js-install
 
