@@ -27,10 +27,20 @@ env:
     MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 
 jobs:
+
+
+
     build:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
+
+            - uses: SOLIDSoftworks/semver-tags@v1
+              with:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+                tag-prefix: 'v'
+                default-version: '0.0.1'
+                prerelease: 'alpha'
             - name: set up and install nodejs
               uses: ./.github/actions/node-js-install
 
