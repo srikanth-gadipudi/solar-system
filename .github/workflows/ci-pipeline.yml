@@ -33,7 +33,9 @@ jobs:
     build:
         runs-on: ubuntu-latest
         permissions:
+          contents: write
           actions: write
+          checks: write
           
 
         steps:
@@ -44,6 +46,7 @@ jobs:
               uses: mathieudutour/github-tag-action@v6.2
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
+            
             - name: Create a GitHub release
               uses: ncipollo/release-action@v1
               with:
