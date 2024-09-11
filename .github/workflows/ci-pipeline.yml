@@ -115,7 +115,7 @@ jobs:
             context: .
             tags: |
               ${{ vars.DOCKER_USERNAME }}/solar-system:latest
-              ${{ vars.DOCKER_USERNAME }}/solar-system: ${{needs.build.outputs.tag}}
+              ${{ vars.DOCKER_USERNAME }}/solar-system:${{needs.build.outputs.tag}}
               ghcr.io/${{ github.repository_owner }}/solar-system:latest
               ghcr.io/${{ github.repository_owner }}/solar-system:${{needs.build.outputs.tag}}
         - name: run docker image and test 
