@@ -1,3 +1,5 @@
+[![CI Pipeline](https://github.com/srikanth-gadipudi/solar-system/actions/workflows/ci-pipeline-sevice-container.yml/badge.svg)](https://github.com/srikanth-gadipudi/solar-system/actions/workflows/ci-pipeline-sevice-container.yml)
+
 # Solar System NodeJS Application
 
 A simple HTML+MongoDB+NodeJS project to display Solar System and it's planets.
