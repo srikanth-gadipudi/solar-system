@@ -1,4 +1,4 @@
-[![CI Pipeline](https://github.com/srikanth-gadipudi/solar-system/actions/workflows/ci-pipeline-sevice-container.yml/badge.svg)](https://github.com/srikanth-gadipudi/solar-system/actions/workflows/ci-pipeline-sevice-container.yml)
+[![node js ci pipeline](https://github.com/srikanth-gadipudi/solar-system/actions/workflows/ci-pipeline.yml/badge.svg)](https://github.com/srikanth-gadipudi/solar-system/actions/workflows/ci-pipeline.yml)
 
 # Solar System NodeJS Application
 
